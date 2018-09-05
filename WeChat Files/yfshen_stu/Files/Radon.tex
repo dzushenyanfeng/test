@@ -1,0 +1,127 @@
+\documentclass[12pt]{amsart}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+\setlength{\textheight}{8.5in} \setlength{\textwidth}{6.4in}
+\setlength{\hoffset}{-0.75in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amscd,xcolor}
+\usepackage{amsmath,multirow,tabularx}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate,graphicx,leftidx}
+\usepackage{amsmath,amsthm,hyperref} %加了 hyperref 后, 用 PDFLaTeX 编译得到的文件有超链接, 方便屏幕阅读
+%\usepackage[notref,notcite]{showkeys} %定稿后此行去掉
+
+\usepackage{fancyhdr}
+%%%%%设置页眉
+\pagestyle{fancy} \lhead{}
+ \chead[Shen]{X-ray CT reconstruction via wavelet frame and nonlocal Low-Rank regularization}
+  \rhead{}
+  %%0pt表示删除页眉下划线
+\renewcommand{\headrulewidth}{0pt}
+%%%%%设置页眉
+
+
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{comparison}[theorem]{Comparison}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{note}[theorem]{Note}
+\newenvironment{proof1}[1]
+[Proof]{\begin{trivlist}\item[\hskip\labelsep{\itshape Proof of
+theorem #1.}]}{\end{trivlist}}
+%%%%%%%%%%%%%%%%%%%%%符号简写%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\R}{{\mathbb R}}
+\newcommand{\eps}{\epsilon}
+\begin{document}
+\title{X-ray CT reconstruction via wavelet frame and nonlocal Low-Rank regularization}
+
+ %    Remove any unused author tags.
+
+ %    author one information
+ \author{Yanfeng Shen}
+ \address{College of Mathematical Science, Dezhou University, Dezhou, Shandong253023, China}
+ %\curraddr{}
+ \email{shyf8584@163.com}
+ \thanks{
+This work was supported by
+Science and Technology Research Program for Universities in Shandong Province, China(grant NO. J16LI58). }
+
+ %    author two information
+ %\thanks{}
+
+
+ \subjclass[2000]{42C15, 94A12}
+
+ \keywords{Radon transform; Image inpainting; Nonlocal Low-Rank regularity}
+
+ %\date{}
+
+ %\dedicatory{}
+ \maketitle
+\begin{abstract}
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%%第一节__介绍%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+Medical imaging application of X-ray computed tomography(CT) include cranial,chest, cardiac
+abdominal and pelvic imaging. The so widely used of CT due to the ability of viewing interior
+structures without destroying the surface of organs or subjects. However, the radiation caused
+by X-ray during imaging do harm to patients' health. Thus, the approximately lossless image
+reconstruction based on low dose X-Ray, like reducing the number of projections, is {\color{red!70}
+continuously} concerned by scientists and doctors. The basic model of X-ray reconstruction problem
+can be represented as a linear inverse problem,
+%------------------公式1.1-------------------------%
+\begin{equation}\label{basic_1}
+Pu=f
+\end{equation}
+%------------------公式1.1-------------------------%
+where $P\in \R^{m\times n}$ is a projection operator represents the collection of discrete
+line integrations at different projection angles and along different beamlets. Numerically
+$P$ is realized by Siddon's algorithm.{\color{blue!70} [Dongbin11,[2]]}
+
+When small number of projections are used, i.e. $m<n$, the matrix $P$ is rank deficiency. A a
+result, \eqref{basic_1} will have infinity many solutions, there are many methods for deriving
+a useful result from them. {\color{blue!70} [add several reference]} The solutions
+by filtered back projection (FBP) algorithm{\color{blue!70} [Dongbin11,[10]]} and algebraic
+reconstruction technique (ART) {\color{blue!70} [Dongbin11,[13]]}, are usually contains artifacts and
+thus unreliable reconstructed.
+
+In practice, the projection image $f$ usually contains noise. Gaussian noise {\color{blue!70} [add several reference]} and Poisson noise ({\color{blue!70} [Donbin11,36,16]}) both are considered to
+simulate the realistic environment. Thus, the basic model \eqref{basic_1} is modified by
+%------------------公式1.2-------------------------%
+\begin{equation}\label{basic_2}
+f=Pu+\eps
+\end{equation}
+%------------------公式1.2-------------------------%
+To suppress noise, and artifacts(unregularities locally) while reconstruction of
+image, usually tiny structures should be contained in, fidelity and {\color{green!80} noun idea},
+various differential operator based regularization methods,
+like variational approach (total variation(TV),{\color{red!70} [14],[1-3]}) and wavelet frame based method ({\color{red!70} [6],[22]}), have been proposed and received acceptability results both
+in vision and computational error. one of the standard forms for TV-based image reconstruction
+model can be written as
+%------------------公式1.3-------------------------%
+\begin{equation}\label{TVmodel}
+\min_u \frac{1}{2}\|Pu-f\|_2^2+\lambda \|\nabla u\|_1.
+\end{equation}
+%------------------公式1.3-------------------------%
+What needed to mention is that, the authors of {\color{red!70}[ ] } establised a rigorous  connection
+between one of the wavelet frame based approach, called the analysis based approach, and variational
+models. The authors proposed a new model used the analysis based approach of wavelet frame method, and built in a Radon domain inpainting, which can improve the {\color{blue! 70}resolution}.
+ %------------------公式1.3-------------------------%
+\begin{align}\label{Wmodel_1}
+\min_{f,u} \frac{1}{2}\|R_{(\omega\backslash\Lambda)}(Pu-f)\|_2^2&+\lambda_1 \|W_1 f\|_{1,2}+\lambda_2 \|W_2 u\|_{1,2}+\\
+&\frac{K}{2}\|R_\Lambda f-f_0\|_2^2+\frac{1}{2}\|R_\Lambda (Pu)-f_0\|_2^2,\nonumber
+\end{align}
+%------------------公式1.3-------------------------%
+where the norm $\|\cdot\|_{1,2}$ is isotropic $l_1$ norm defined as,
+$$$$  
+
+\end{document}

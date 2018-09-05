@@ -1,0 +1,305 @@
+\documentclass[mathserif,compress,cjk]{beamer}
+\usepackage{amsfonts}
+
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{latexsym}
+\usepackage{amssymb,latexsym,amsmath,amsthm}
+\usepackage{xcolor}
+\usepackage{epsfig,psfrag,color}
+\usepackage{palatino}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\thispagestyle{empty}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width = 2cm, minimum height=1cm,text centered, draw = black]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{decision} = [diamond, aspect = 3, text centered, draw=black]
+\tikzstyle{arrow} = [->,>=stealth]
+
+
+\usepackage{ragged2e}
+\justifying\let\raggedright\justifying
+%\usepackage[ruled]{algorithm2e}
+\usepackage[ruled,linesnumbered]{algorithm2e}
+\SetKwRepeat{Do}{do}{while}%
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % 可供选择的主题参见 beameruserguide.pdf, 第 134 页起
+  % 无导航条的主题: Bergen, Boadilla, Madrid, Pittsburgh, Rochester;
+  % 有树形导航条的主题: Antibes, JuanLesPins, Montpellier;
+  % 有目录竖条的主题: Berkeley, PaloAlto, Goettingen, Marburg, Hannover;
+  % 有圆点导航条的主题: Berlin, Dresden, Darmstadt, Frankfurt, Singapore, Szeged;
+  % 有节与小节导航条的主题: Copenhagen, Luebeck, Malmos, Warsaw
+
+%  \setbeamercovered{transparent}
+% 如果取消上一行的注解 %, 就会使得被覆盖部分变得透明(依稀可见)
+}
+
+\usepackage{CJK}
+\usepackage{hyperref}
+\hypersetup{CJKbookmarks=true}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{color,xcolor}
+\usepackage{graphicx}
+\usepackage{manfnt}
+\usepackage{mathrsfs}
+
+\usepackage{txfonts}
+\usepackage{pifont}
+%自定义格式
+\def\R{\mathfrak R}
+\newcommand{\adots}{\mathinner{\mkern2mu%
+\raisebox{0.1em}{.}\mkern2mu\raisebox{0.4em}{.}%
+\mkern2mu\raisebox{0.7em}{.}\mkern1mu}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\beamertemplatetextbibitems %参考文献编号命令
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           定制幻灯片---重定义字体、字号命令                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\song}{\CJKfamily{song}}    % 宋体   (Windows自带simsun.ttf)
+\newcommand{\fs}{\CJKfamily{fs}}        % 仿宋体 (Windows自带simfs.ttf)
+\newcommand{\kai}{\CJKfamily{kai}}      % 楷体   (Windows自带simkai.ttf)
+\newcommand{\hei}{\CJKfamily{hei}}      % 黑体   (Windows自带simhei.ttf)
+\newcommand{\li}{\CJKfamily{li}}        % 隶书   (Windows自带simli.ttf)
+\newcommand{\you}{\CJKfamily{you}}      % 幼圆   (Windows自带simyou.ttf)
+\newcommand{\chuhao}{\fontsize{42pt}{\baselineskip}\selectfont}     % 字号设置
+\newcommand{\xiaochuhao}{\fontsize{36pt}{\baselineskip}\selectfont} % 字号设置
+\newcommand{\yichu}{\fontsize{32pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\yihao}{\fontsize{28pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\erhao}{\fontsize{21pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaoerhao}{\fontsize{18pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\sanhao}{\fontsize{15.75pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\sihao}{\fontsize{14pt}{\baselineskip}\selectfont}      % 字号设置
+\newcommand{\xiaosihao}{\fontsize{12pt}{\baselineskip}\selectfont}  % 字号设置
+\newcommand{\wuhao}{\fontsize{10.5pt}{\baselineskip}\selectfont}    % 字号设置
+\newcommand{\xiaowuhao}{\fontsize{9pt}{\baselineskip}\selectfont}   % 字号设置
+\newcommand{\liuhao}{\fontsize{7.875pt}{\baselineskip}\selectfont}
+\newcommand{\qihao}{\fontsize{5.25pt}{\baselineskip}\selectfont}
+
+\begin{document}
+\begin{CJK*}{GBK}{song}
+\CJKtilde
+%======================= 标题名称中文化 ============================%
+\setbeamertemplate{footline}[frame number]
+\makeatletter
+\renewcommand\theequation{\thesection.\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+
+\title[Sampling rate]{Phase-retrieval for the  union of cones: separation and   recovery}   % 如果标题不长, [短标题]可以略去
+%\subtitle{********}
+
+\author[Youfa Li]%
+{\textcolor{blue}{Youfa Li}~~~~~~~~~\mbox{}\\[0.5em]}
+\institute{\xiaosihao\hei\textcolor[rgb]{0.85,0.42,0.00} {Guangxi
+University, China}\\
+\textcolor{blue}{Deguang Han} \\
+ \textcolor[rgb]{0.85,0.42,0.00}{University of Central Florida}}
+\date{23-07-2018}
+
+ \begin{frame}
+ \titlepage
+ \end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+
+\section{Two important sampling problems}
+\subsection{Phase retrieval}
+\begin{frame}
+\begin{block}{Phase Retrieval}
+{\color{red} Magnitude measurement}:
+\begin{align}\label{prdy}
+b_{j}:=|\langle f, a_{j}\rangle|, j\in \Lambda
+\end{align}
+{\color{red} Objective}: recover $f$ via $\{b_{j}\}_{j\in \Lambda}$ up to a global phase.
+\begin{itemize}
+\item Fourier PR:  $f\in \mathbb{C}^n, a_{j}=[e^{ijt_{1}}, e^{ijt_{2}}, \ldots, e^{ijt_{n}}]$. (X-ray crystallography....).
+\item Frame PR: $f\in \mathbb{C}^n$, $\{a_{j}\}_{j\in \Lambda}--$ a frame of $\mathbb{C}^n.$ (R. Balan, P.G. Casazza, and D. Edidin)
+\item Bandlimited function $f$:  (G. Thakur)
+\item Shift-invariant space: (Qiyu Sun's group, Wenchang Sun)
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}
+\begin{block}{Two issues  of finite dimensional PR}
+(I): {\color{red} sample complexity ratio}:
+SCR=$\frac{m}{n}, $ $m$ phase retrievable measurement vectors, $n=\hbox{length}(f)$.
+\begin{itemize}
+\item {\color{red} Real-valued}: Real-valued matrix $A:=[a_{1}, \ldots, a_{m}]\in \mathbb{R}^{n\times m}$ can do PR of   $\mathbb{R}^{n}$ $\Longrightarrow$ ${\color{red}m\geq 2n-1}\Longrightarrow \hbox{SCR}\geq \textcolor[rgb]{1.00,0.00,0.00}{2-1/n}$.
+\end{itemize}
+
+\begin{itemize}
+\item {\color{red} Complex-valued}: The minimum amount of vectors for PR of $\mathbb{C}^{n}$?
+\end{itemize}
+
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Two issues  of finite dimensional PR}
+(II): {\color{red} Computational complexity----algorithm}.
+ \begin{table}[h]
+ \centering
+ \begin{tabular}{ccccccccccccc}
+  \hline
+  PR method   & Wirtinger Flow  & Alternating Minimization  \\  \hline
+Comp. Complexity  & $O(n^2\log\frac{1}{\epsilon})$ & $O(n^{2}\log^{2}n(\log n+\log\frac{1}{\epsilon}\log\log\frac{1}{\epsilon}))$  \\ \hline
+  PR method  & BlockPR& PhaseLift \\  \hline
+Comp. Complexity  & $\textcolor[rgb]{0.00,0.07,1.00}{O(n\log^{4}n)}$ & $O(n^{3}/\epsilon^{2})$ \\ \hline
+  \end{tabular}
+  \caption{The computational complexity of different PR methods, where $\epsilon$ is the computing accuracy.}
+\end{table}
+\end{block}
+\end{frame}
+
+\subsection{Sampling on a union of subspaces}
+\begin{frame}
+\begin{block}{Two signal models}
+\begin{itemize}
+\item {\color{red} Traditional model}: the target signal $f\in V:=\hbox{span}\{\phi_{k}: k\in \Lambda\}$. (wavelet space, periodic signal space......)
+\end{itemize}
+\begin{itemize}
+\item {\color{red} Union of subspaces (UoS model)}: the target signal $f\in \bigcup^{L}_{k=1}V_{k}$. (\textcolor[rgb]{1.00,0.00,0.00}{Advantage}: By exploiting the structure of UoS,  a signals in the    bandlimited  UoS can be recovered with the sampling rate lower than  Nyquist. \textcolor[rgb]{1.00,0.00,0.00}{[}Y.  Lu and M.  Do, 2008, IEE T. S. P\textcolor[rgb]{1.00,0.00,0.00}{]}, \textcolor[rgb]{1.00,0.00,0.00}{[}Y. C. Eldar and M. Mishali, 2009,
+    IEE T. I. T\textcolor[rgb]{1.00,0.00,0.00}{]} and so on. )
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+
+\section{Phase retrieval for the separable  union of cones (UoC)}
+\begin{frame}
+\begin{block}{Cones and their union}
+\begin{align}
+\mathcal{X}_{k}=[\textbf{x}_{k,1},\ldots, \textbf{x}_{k,m_{k}}]\in \mathbb{R}^{n\times m_{k}},\notag \\
+\textbf{\hbox{cone}}(\mathcal{X}_{k})=\{\mathcal{X}_{k}\Theta:  \forall\Theta\succeq 0 (\in \mathbb{R}^{m_k})\},\notag\\
+\hbox{UoC}: \bigcup^{L}_{k=1} \textbf{\hbox{cone}}(\mathcal{X}_{k}).\notag
+\end{align}
+\end{block}
+Applications: operations research, representation theory,    and  compressed sensing.
+\end{frame}
+
+\begin{frame}
+\begin{block}{Recovery of signals on $\hbox{UoC} \bigcup^{L}_{k=1} \textbf{\hbox{cone}}(\mathcal{X}_{k})$ by magnitude measurements}
+\textcolor[rgb]{0.00,0.07,1.00}{Object}: Using few measurements and fast recovery? \\
+\textcolor[rgb]{0.00,0.07,1.00}{Two-step PR-scheme}: $\hbox{PR}=\hbox{separation}+\hbox{recovery}$.\\
+\end{block}
+\textbf{\textcolor[rgb]{0.00,0.07,1.00}{Some problems}}:\\
+\textcolor[rgb]{0.00,0.07,1.00}{ \textbf{P1}}: For the target $f\in \hbox{UoC} $, suppose that $f\in \textbf{\hbox{cone}}(\mathcal{X}_{k_{f}})$.
+ In what conditions,  by the \textbf{magnitude measurements}, can  $f$ be separated from
+ $\bigcup_{k\neq k_{f}} \textbf{\hbox{cone}}(\mathcal{X}_{k})$? \\
+
+\textcolor[rgb]{0.00,0.07,1.00}{ \textbf{P2}}: If \textcolor[rgb]{0.00,0.07,1.00}{ \textbf{P1}} holds, then how the separation can be performed?
+
+\textcolor[rgb]{0.00,0.07,1.00}{ \textbf{P3}}: How to exploit the structure of the cone to reduce  measurements and establish  fast recovery?
+\end{frame}
+
+\begin{frame}
+\begin{block}{Separable union of cones}
+We say that a UoC  $\bigcup^{L}_{k=1} \textbf{\hbox{cone}}(\mathcal{X}_{k})$  is separable
+with respect to a \textcolor[rgb]{0.00,0.07,1.00}{separating  strategy},  if there exists a so-called
+\textcolor[rgb]{0.00,0.07,1.00}{identifier} $G:=[g_{1}, \ldots, g_{\gamma}]\in\mathbb{R}^{n\times \gamma}$ such that for any nonzero target vector $f\in\bigcup^{L}_{k=1} \textbf{\hbox{cone}}(\mathcal{X}_{k})$, by applying the strategy to the  \textcolor[rgb]{0.00,0.07,1.00}{measurement} $|Gf|:=[|\langle g_{1}, f\rangle|, \ldots, |\langle  g_{\gamma}, f\rangle|]$, the unique  index $k_{f}$  can be determined  such that   $f\in\textbf{\hbox{cone}}(\mathcal{X}_{k_{f}})$.
+
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Case of two cones}
+Suppose that $\textbf{\hbox{cone}}(\mathcal{X}_{1})$ and $\textbf{\hbox{cone}}(\mathcal{X}_{2})$ are the  two cones generated by the columns vectors of  the matrices $\mathcal{X}_{1}\in \mathbb{R}^{n\times m_1}$ and $ \mathcal{X}_{2}\in \mathbb{R}^{n\times m_2},$ respectively.  Then the source of any nonzero $f\in \bigcup^{2}_{k=1} \textbf{\hbox{cone}}(\mathcal{X}_{k})$ can be identified  by  a \textcolor[rgb]{1.00,0.00,0.00}{vector identifier}
+if and only if  either \begin{align}\label{separatingPR} \textcolor[rgb]{1.00,0.00,0.00}{\hbox{invim}}(\textcolor[rgb]{1.00,0.00,0.00}{\mathcal{R}}(\mathcal{X}_{1}^{T})\cap \textcolor[rgb]{1.00,0.00,0.00}{\mathbb{R}^{+,m_{1}}})\cap \textcolor[rgb]{1.00,0.00,0.00}{\mathcal{N}}(X^{T}_{2})\neq\emptyset \end{align}
+or
+\begin{align}
+\hbox{invim}(\mathcal{R}(\mathcal{X}_{2}^{T})\cap \mathbb{R}^{+,m_{2}})\cap \mathcal{N}(X^{T}_{1})\neq\emptyset.
+\end{align}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Separating strategy by exclusion--separable UoC of two cones}
+If, for example,
+$$\hbox{invim}(\mathcal{R}(\mathcal{X}_{1}^{T})\cap \mathbb{R}^{+,m_{2}})\cap \mathcal{N}(X^{T}_{2})\neq\emptyset,$$
+then pick an identifier $g\in \hbox{invim}(\mathcal{R}(\mathcal{X}_{1}^{T})\cap \mathbb{R}^{+,m_{2}})\cap \mathcal{N}(X^{T}_{2})$.
+For the target $f\in \bigcup^{2}_{k=1} \textbf{\hbox{cone}}(\mathcal{X}_{k})$, if $|\langle g, f\rangle|>0,$ then $f\notin \textbf{\hbox{cone}}(\mathcal{X}_{2})$. Conversely, if $|\langle g, f\rangle|=0,$ then $f\notin \textbf{\hbox{cone}}(\mathcal{X}_{1})$.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{General UoC}
+A UoC $\bigcup^{L}_{k=1} \textbf{\hbox{cone}}(\mathcal{X}_{k})$, where  $\mathcal{X}_{k}=[\textbf{x}_{k,1},\ldots, \textbf{x}_{k,m_{k}}]\subseteq \mathbb{R}^{n\times m_{k}}$,  is separable  if and only if for every $k$ we have either
+\begin{align}\label{separatingPRgeneral} \hbox{invim}(\mathcal{R}(\mathcal{X}_{l}^{T})\cap \mathbb{R}^{+,m_{l}})\cap \mathcal{N}(X^{T}_{k})\neq\emptyset, \end{align}
+\ \hbox{or} \ \begin{align}\hbox{invim}(\mathcal{R}(\mathcal{X}_{k}^{T})\cap \mathbb{R}^{+,m_{k}})\cap \mathcal{N}(X^{T}_{l})\neq\emptyset,
+\end{align}
+where $ l=1, \ldots, k-1.$
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\begin{tikzpicture}[node distance=2cm]
+%定义流程图具体形状
+\node[startstop](start){Start};
+\node[io, below of = start, yshift = -1cm](in1){Input};
+\node[process, below of = in1, yshift = -1cm](pro1){Process 1};
+\node[decision, below of = pro1, yshift = -1cm](dec1){Decision 1 ?};
+\node[process, below of = dec1, yshift = -1cm](pro2){Process 2};
+\node[io, below of = pro2, yshift = -1cm](out1){Output};
+\node[startstop, below of = out1, yshift = -1cm](stop){Stop};
+\coordinate (point1) at (-3cm, -6cm);
+%连接具体形状
+\draw [arrow] (start) -- (in1);
+\draw [arrow] (in1) -- (pro1);
+\draw [arrow] (pro1) -- (dec1);
+\draw (dec1) -- node [above] {Y} (point1);
+\draw [arrow] (point1) |- (pro1);
+\draw [arrow] (dec1) -- node [right] {N} (pro2);
+\draw [arrow] (pro2) -- (out1);
+\draw [arrow] (out1) -- (stop);
+\end{tikzpicture}
+\end{frame}
+
+
+\begin{frame}
+\Huge{\centerline{Thank You!}}
+\end{frame}
+
+
+
+%\begin{thebibliography}{66}
+%\begin{frame}{References}
+%\bibitem{MZN} M. Z. Nashed, Generalized inverse and applications, New York/London: Academic Press, 1976
+%\bibitem{HRB} Holmes, R.B., A couse on opotimization and best approximation, Lecture notes in mathematics, 257, Springer-Verlag, Berlin-New York,1972
+%\bibitem{NOD} Newman, T.G. and P.L. Odell, on the concept of a $p-q$ generalized inverse of matrix, SIAM J. Appl. Math., 17(1969),520-525
+%\bibitem{BG}  Ben-Israel, A. and T.N.E. Greville, Generalized inverse: Theory and applications, Willey-interscience, New York, 1974
+%\bibitem{HW}  H. Wang, Y. Wang, Metric generalized inverse of linear operator in Banach spaces, Chin. Ann. Math. 24B (2003), no. 4, 509-520
+%\bibitem{WY}  Y.Wang, Theory of Generalized Inverse of Operators on Banach Spaces and Its Application, Science Press, Beijing, 2005
+%\end{frame}
+%\begin{frame}{References}
+%\bibitem{CX}  J. Cao and Y. Xue, On the simplest expression of the perturbed Moore-Penrose metric  generalized inverses,
+%                 Ann. Univ. Buchar. Math. Ser. 4 (LXII) (2013), 433-446
+%\bibitem{MS}  H. Ma, S. Sun, Y.Wang and W. Zhang, Perturbations of Moore-Penrose metric generalized inverses of linear operators in Banach Spaces,
+%                        Acta Math. Sinica (English Ser.) 30(7)(2014), 1109-1124
+%\bibitem{FD}  F. Deutsch, Linear selections for the metric projection, J. Funct. Anal. 49(1982), 269-292.
+%\bibitem{JL}  J.Li, The metric projection and its applications to sloving variational inequalities in Banach spaces. Fixed Point Theory, 5(2)(2004), 285-298
+%\bibitem{HWW}  H. Hudzik, Y. Wang and W. Zheng, Criteria for the metric generalized inverse and its selection in Banach spaces. Set-Valued Anal. 16(2008), 51-65
+%\end{frame}
+%
+%\begin{frame}{References}
+%
+%\end{frame}
+%\end{thebibliography}
+
+
+
+
+
+
+\end{CJK*}
+\end{document}
